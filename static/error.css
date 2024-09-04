@@ -1,0 +1,38 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    background-color: #000000;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.icon {
+    font-size: 200px;
+    margin-bottom: 20px;
+    color: #f3bb44;
+}
+.message {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #f3bb44;
+}
+.homepage-button {
+    font-size: 18px;
+    padding: 10px 20px;
+    color: #f3bb44;
+    background-color: #181818;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+.homepage-button:hover {
+    background-color: #3b3a3a;
+    color: #f3bb44;
+}

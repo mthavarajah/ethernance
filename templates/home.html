@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/772b7313f2.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/home.css">
+    <link rel="icon" href="/static/assets/logo.png" type="image/png">
+    <title>Ethernance</title>
+</head>
+<body>
+    <!--Logo-->
+    <div class="logo">
+        <img src="/static/assets/logo.png" width="100px" height="100px">
+    </div>
+
+    <!--Titles and Card-->
+    <div class="titles-card-container">
+        <!-- Titles -->
+        <div class="titles">
+            <div class="title1">Ethernance</div>
+            <div class="title2">Blockchain Explorer</div>
+            <div class="title3">Explore transactions and balances for Ethereum and Binance wallet addresses</div>
+        </div>
+        <!--Price Card -->
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="" height="100px" width="100px">
+                    <p class="coin-name">Ethereum</p>
+                    <p class="title">{{ eth_formatted }}</p>
+                </div>
+                <div class="flip-card-back">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Binance_Logo.png" alt="" height="100px" width="100px">
+                    <p class="coin-name">Binance Coin</p>
+                    <p class="title">{{ bnb_formatted }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Address Input and Blockchain Selection Form -->
+    <form method="GET" action="/handle_form">
+        <!--Address Input-->
+        <div class="group">
+            <button type="submit" class="submit-icon-button" aria-label="Submit"> 
+                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" type="submit">
+                    <g>
+                        <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
+                    </g>
+                </svg>
+            </button>
+            <input placeholder="Enter Wallet Address" type="search" name="address" class="input" required>
+        </div>
+        <!-- Blockchain Selection -->
+        <div class="radio-inputs">
+            <label class="radio">
+                <input type="radio" name="blockchain" value="ethereum" checked>
+                <span class="name">Ethereum</span>
+            </label>
+            <label class="radio">
+                <input type="radio" name="blockchain" value="binance">
+                <span class="name">Binance</span>
+            </label>
+        </div>
+    </form>
+
+    <!--Social Media Icons-->
+    <div class="social-media">
+        <a href="https://www.linkedin.com/in/mathuthavarajah/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/mthavarajah" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a href="mailto:m6thavar@uwaterloo.ca"><i class="fa-regular fa-envelope"></i></a>
+    </div>
+    
+</body>
+</html>

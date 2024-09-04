@@ -1,0 +1,225 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://kit.fontawesome.com/772b7313f2.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/static/info.css">
+        <link rel="icon" href="/static/assets/logo.png" type="image/png">
+        <!DOCTYPE html>
+        <title>Ethernance | Address {{ address }}</title>
+    </head>
+<body>
+    <!-- Logo -->
+    <div class="logo">
+        <a href="{{ url_for('home') }}"><img src="/static/assets/logo.png" width="100px" height="100px"></a>
+    </div>
+
+    <!-- Address Input and Blockchain Selection Form -->
+    <form method="GET" action="/handle_form">
+        <!--Address Input-->
+        <div class="group">
+                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24" type="submit" height="1px" width="1px">
+                    <g>
+                        <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
+                    </g>
+                </svg>
+            </button>
+            <input placeholder="Enter Wallet Address" type="search" name="address" class="input" required>
+        </div>
+        <!-- Blockchain Selection -->
+        <div class="radio-inputs">
+            <label class="radio">
+                <input type="radio" name="blockchain" value="ethereum" checked>
+                <span class="name">Ethereum</span>
+            </label>
+            <label class="radio">
+                <input type="radio" name="blockchain" value="binance">
+                <span class="name">Binance</span>
+            </label>
+        </div>
+    </form>
+
+    <!-- Overview Details -->
+     <div class="overview">
+       <div class="balance">{{ symbol }} Balance: <span class="balance1">{{ balance_formatted }}</span></div>
+       <div class="usd-balance">{{ symbol }} Value: <span class="usd-balance1">{{ usd_balance_formatted }}</span></div>
+       <div class="wallet-address">Wallet Address: <span class="wallet-address1">{{ address }}</span> 
+            <!-- Copy Address Icon -->
+            <i class="fa-regular fa-copy" id="copy-icon" data-clipboard="{{ address }}" title="Copy Address"></i>
+            <!-- Download CSV -->
+            <a href="{{ url_for('download_csv', address=address, blockchain=name) }}" class="download-link" title="Download CSV"><i class="fa-solid fa-download"></i></a>
+        </div>
+
+    </div>
+
+    <!-- Search Box -->
+    <div class="search-container">
+        {% if name == 'ethereum' %}
+        <form method="get" action="{{ url_for('ethereum') }}">
+        {% endif %}
+        {% if name == 'binance' %}
+        <form method="get" action="{{ url_for('binance') }}">
+        {% endif %}
+            <input type="hidden" name="address" value="{{ address }}">
+            <select name="column" class="select-box">
+                <option value="hash" {% if search_column == 'hash' %}selected{% endif %}>Transaction Hash</option>
+                <option value="blocknumber" {% if search_column == 'blocknumber' %}selected{% endif %}>Block Number</option>
+                <option value="transferType" {% if search_column == 'transferType' %}selected{% endif %}>Transfer Type</option>
+                <option value="date" {% if search_column == 'date' %}selected{% endif %}>Date</option>
+                <option value="fromAddress" {% if search_column == 'fromAddress' %}selected{% endif %}>From</option>
+                <option value="toAddress" {% if search_column == 'toAddress' %}selected{% endif %}>To</option>
+            </select>
+
+            {% if search_column == 'hash' %}
+            <input type="text" name="search" placeholder="Search Transaction Hash..." value="{{ search_query }}" class="input-box">
+            {% endif %}
+
+            {% if search_column == 'blocknumber' %}
+            <input type="text" name="search" placeholder="Search Block Number..." value="{{ search_query }}" class="input-box">
+            {% endif %}
+
+            {% if search_column == 'transferType' %}
+            <select name="in-out" class="in-out">
+                <option value="" {% if search_transferType == '' %}selected{% endif %}></option>
+                <option value="In" {% if search_transferType == 'In' %}selected{% endif %}>Incoming</option>
+                <option value="Out" {% if search_transferType == 'Out' %}selected{% endif %}>Outgoing</option>
+            </select>
+            {% endif %}
+
+            {% if search_column == 'date' %}
+            <input type="date" name="start_date" placeholder="Start Date" value="{{ start_date }}" class="input-box">
+            <input type="date" name="end_date" placeholder="End Date" value="{{ end_date }}" class="input-box">
+            {% endif %}
+
+            {% if search_column == 'fromAddress' %}
+            <input type="text" name="search" placeholder="Search From Address..." value="{{ search_query }}" class="input-box">
+            {% endif %}
+
+            {% if search_column == 'toAddress' %}
+            <input type="text" name="search" placeholder="Search To Address..." value="{{ search_query }}" class="input-box">
+            {% endif %}
+
+            <button type="submit" class="search-button">Search</button>
+        </form>
+    </div>
+
+    <!-- Number of Transactions -->
+    <div class="no-of-transactions">
+        {% if total_rows < 10000 %}
+        {{ "{:,.0f}".format(total_rows) }} transactions
+        {% elif total_rows == 1 %}
+        1 transaction
+        {% else %}
+        10,000+ transactions
+        {% endif %}
+     </div>
+    
+    <!-- Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Transaction Hash</th>
+                <th>Block Number</th>
+                <th>Transfer Type</th>
+                <th>Date</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Amount ({{ symbol }})</th>
+                <th>Amount (USD)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in results %}
+            <tr>
+                <td><a href="{{ link }}tx/{{ row[0] }}" target="_blank">{{ row[0] }}</a></td>
+                <td class="center-align"><a href="{{ link }}block/{{ row[1] }}" target="_blank">{{ row[1] }}</a></td>
+                <td class="center-align">
+                    {% if row[2] == 'Out' %}
+                    <i class="fa-solid fa-arrow-right-from-bracket" style="color: #f36d44;"></i>
+                    {% elif row[2] == 'In' %}
+                    <i class="fa-solid fa-arrow-right-to-bracket" style="color: #9cf344;"></i>
+                    {% endif %}
+
+                </td>
+                <td class="center-align">{{ row[3] }}</td>
+                {% if name == 'ethereum' %}
+                    <td><a href="{{ url_for('ethereum', address=row[4]) }}">{{ row[4] }}</a></td>
+                    <td><a href="{{ url_for('ethereum', address=row[5]) }}">{{ row[5] }}</a></td>
+                {% endif %}
+                {% if name == 'binance' %}
+                    <td><a href="{{ url_for('binance', address=row[4]) }}">{{ row[4] }}</a></td>
+                    <td><a href="{{ url_for('binance', address=row[5]) }}">{{ row[5] }}</a></td>
+                {% endif %}
+                <td class="center-align">{{ '{:,.6f}'.format(row[6]) }}</td>
+                <td class="center-align">{{ '{:,.2f}'.format(row[7]) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- No Results -->
+    {% if not results %}
+    <center><div class="no-results-message">
+        No results found for your search criteria. Please try again with different keywords.
+    </div></center>
+    {% endif %}
+
+    <!-- Pagination  -->
+    {% if results %}
+    <center><div class="pagination">
+        <!-- First Page -->
+        <a href="{{ url_for(name, address=address, page=1) }}"><<</a>
+
+        <!-- Previous Page -->
+        {% if current_page > 1 %}
+        <a href="{{ url_for(name, address=address, page=current_page - 1) }}"><</a>
+        {% endif %}
+
+        <!-- Page Numbers -->
+        {% for page_num in visible_pages %}
+            <a href="{{ url_for(name, address=address, page=page_num) }}"
+            class="{% if page_num == current_page %}active{% endif %}">
+            {{ page_num }}
+            </a>
+        {% endfor %}
+
+        <!-- Next Page -->
+        {% if current_page < total_pages %}
+        <a href="{{ url_for(name, address=address, page=current_page + 1) }}">></a>
+        {% endif %}
+
+        <!-- Last Page -->
+        <a href="{{ url_for(name, address=address, page=total_pages) }}">>></a>
+    </div></center>
+    {% endif %}
+
+
+    <!--Social Media Icons-->
+    <center><div class="social-media">
+        <a href="https://www.linkedin.com/in/mathuthavarajah/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://github.com/mthavarajah" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a href="mailto:m6thavar@uwaterloo.ca"><i class="fa-regular fa-envelope"></i></a>
+    </div></center>
+
+</body>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to copy text to clipboard
+            function copyToClipboard(text) {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+            }
+
+            // Event listener for the copy icon
+            document.getElementById('copy-icon').addEventListener('click', function() {
+                const address = this.getAttribute('data-clipboard');
+                copyToClipboard(address);
+                alert('Address copied to clipboard!');
+            });
+        });
+</script>
+</html>
