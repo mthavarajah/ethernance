@@ -107,7 +107,7 @@
     <div class="no-of-transactions">
         {% if total_rows < 10000 %}
         {{ "{:,.0f}".format(total_rows) }} transactions
-        {% elif total_rows == 1 %}
+        {% elif total_rows < 2 %}
         1 transaction
         {% else %}
         10,000+ transactions
