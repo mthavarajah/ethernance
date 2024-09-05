@@ -87,7 +87,7 @@ def ethereum():
     usd_json = "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT"
     usd_response = requests.get(usd_json)
     usd_data = usd_response.json()
-    usd_price = float(usd_data['price'])
+    usd_price = float(1)    #usd_data['price']
 
     # Balance Values
     balance = float(balance_json['result'])*(10**(-18))
@@ -281,7 +281,7 @@ def binance():
     usd_json = "https://api.binance.com/api/v3/ticker/price?symbol=BNBUSDT"
     usd_response = requests.get(usd_json)
     usd_data = usd_response.json()
-    usd_price = float(usd_data['price'])
+    usd_price = float(1)    #usd_data['price']
 
     # Balance Values
     balance = float(balance_json['result'])*(10**(-18))
