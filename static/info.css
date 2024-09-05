@@ -231,6 +231,7 @@ table a:hover {
     width: 100px;
     height: 25px;
     font-size: 15px;
+    cursor: pointer;
 }
 
 /* Number of Transactions */
