@@ -11,14 +11,14 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 app = Flask(__name__)
 
 # Custom error handler for OperationalError
-@app.errorhandler(OperationalError)
-def handle_operational_error(error):
-    return render_template('error.html', error_message="A database error occurred."), 500
+# @app.errorhandler(OperationalError)
+# def handle_operational_error(error):
+#     return render_template('error.html', error_message="A database error occurred."), 500
 
 # General error handler for any unhandled exceptions
-@app.errorhandler(Exception)
-def handle_exception(error):
-    return render_template('error.html', error_message="An unexpected error occurred."), 500
+# @app.errorhandler(Exception)
+# def handle_exception(error):
+#     return render_template('error.html', error_message="An unexpected error occurred."), 500
 
 # Homepage
 @app.route('/')
