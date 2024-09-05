@@ -27,13 +27,13 @@ def home():
     usd_json_eth = "https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT"
     usd_response_eth = requests.get(usd_json_eth)
     usd_data_eth = usd_response_eth.json()
-    usd_price_eth = float(usd_data_eth['price'])
+    usd_price_eth = float(1)    #usd_data_eth['price']
 
     # BNB to USD
     usd_json_bnb = "https://api.binance.com/api/v3/ticker/price?symbol=BNBUSDT"
     usd_response_bnb = requests.get(usd_json_bnb)
     usd_data_bnb = usd_response_bnb.json()
-    usd_price_bnb = float(usd_data_bnb['price'])
+    usd_price_bnb = float(1)     #usd_data_bnb['price']
 
     # Formatting
     eth_formatted = "${:,.2f}".format(usd_price_eth)
