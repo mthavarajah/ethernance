@@ -1,7 +1,6 @@
 body {
     background-color: black;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow-x: hidden;
 }
 
 /* Logo */
@@ -19,7 +18,6 @@ table {
     border-collapse: collapse;
     color: #fff;
     border: none;
-    overflow-x: auto;
 
 }
 th, td {
@@ -62,7 +60,7 @@ table a:hover {
 
 }
 .input {
-    width: calc(100% - 2.5 rem)
+    width: 100%;
     height: 50px;
     line-height: 28px;
     padding: 0 1rem;
