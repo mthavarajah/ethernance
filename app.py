@@ -11,14 +11,14 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 app = Flask(__name__)
 
 # Custom error handler for OperationalError
-# @app.errorhandler(OperationalError)
-# def handle_operational_error(error):
-#     return render_template('error.html', error_message="A database error occurred."), 500
+@app.errorhandler(OperationalError)
+def handle_operational_error(error):
+    return render_template('error.html', error_message="A database error occurred."), 500
 
 # General error handler for any unhandled exceptions
-# @app.errorhandler(Exception)
-# def handle_exception(error):
-#     return render_template('error.html', error_message="An unexpected error occurred."), 500
+@app.errorhandler(Exception)
+def handle_exception(error):
+    return render_template('error.html', error_message="An unexpected error occurred."), 500
 
 # Homepage
 @app.route('/')
@@ -88,12 +88,12 @@ def ethereum():
         return render_template('error.html')
 
     # ETH to USD
-    usd_json_eth = "https://api.etherscan.io/api?module=stats&action=ethprice&apikey=PTRS8TGA5V4CXNACUGEBB5FC3RQZ28WBPG"
-    usd_response_eth = requests.get(usd_json_eth)
-    usd_data_eth = usd_response_eth.json()
-    if usd_data_eth['status'] != '1':
+    usd_json = "https://api.etherscan.io/api?module=stats&action=ethprice&apikey=PTRS8TGA5V4CXNACUGEBB5FC3RQZ28WBPG"
+    usd_response = requests.get(usd_json)
+    usd_data = usd_response.json()
+    if usd_data['status'] != '1':
             return render_template('error.html')
-    usd_price_eth = float(usd_data_eth['result']['ethusd'])
+    usd_price = float(usd_data_eth['result']['ethusd'])
 
     # Balance Values
     balance = float(balance_json['result'])*(10**(-18))
@@ -284,12 +284,12 @@ def binance():
         return render_template('error.html')
 
     # BNB to USD
-    usd_json_bnb = "https://api.bscscan.com/api?module=stats&action=bnbprice&apikey=K7Y216JCF2ZI399V8TQJSCWPPESIVP8AYP"
-    usd_response_bnb = requests.get(usd_json_bnb)
-    usd_data_bnb = usd_response_bnb.json()
-    if usd_data_bnb['status'] != '1':
+    usd_json = "https://api.bscscan.com/api?module=stats&action=bnbprice&apikey=K7Y216JCF2ZI399V8TQJSCWPPESIVP8AYP"
+    usd_response = requests.get(usd_json)
+    usd_data = usd_response.json()
+    if usd_data['status'] != '1':
             return render_template('error.html')
-    usd_price_bnb = float(usd_data_bnb['result']['ethusd'])
+    usd_price = float(usd_data_eth['result']['ethusd'])
 
     # Balance Values
     balance = float(balance_json['result'])*(10**(-18))
