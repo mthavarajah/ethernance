@@ -93,7 +93,7 @@ def ethereum():
     usd_data = usd_response.json()
     if usd_data['status'] != '1':
             return render_template('error.html')
-    usd_price = float(usd_data_eth['result']['ethusd'])
+    usd_price = float(usd_data['result']['ethusd'])
 
     # Balance Values
     balance = float(balance_json['result'])*(10**(-18))
@@ -289,7 +289,7 @@ def binance():
     usd_data = usd_response.json()
     if usd_data['status'] != '1':
             return render_template('error.html')
-    usd_price = float(usd_data_eth['result']['ethusd'])
+    usd_price = float(usd_data['result']['ethusd'])
 
     # Balance Values
     balance = float(balance_json['result'])*(10**(-18))
