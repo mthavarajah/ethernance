@@ -1,6 +1,6 @@
 # Ethernance
 
-Ethernance is a blockchain explorer tool that allows users to explore transactions and balances for Ethereum and Binance wallet addresses. It provides a comprehensive view of transactions, including search functionalities and export options.
+Ethernance is a blockchain explorer tool that allows users to explore transactions and balances for Ethereum and Binance wallet addresses. It provides a comprehensive view of transactions, including search functionalities and export options. Users can only request the most recent 10,000 transactions per wallet address.
 
 ## Features
 
