@@ -13,7 +13,7 @@ body {
 /* Titles */
 .title1 {
     color: #f3bb44;
-    padding-top: 170px;
+    padding-top: 120px;
     margin-left: 70px;
     font-size: 50px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -95,7 +95,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    padding-top: 250px;
+    padding-top: 150px;
 }
 .social-media a:hover {
     background: #f3bb44;
@@ -109,7 +109,7 @@ body {
     width: 285px;
     height: 381px;
     perspective: 1000px;
-    padding-top: 100px;
+    padding-top: 50px;
     font-family: sans-serif;
 }
 
@@ -167,7 +167,7 @@ body {
     align-items: flex-start;
 }
 .titles {
-    margin-right: 600px;
+    margin-right: 350px;
 }
 
 /* Blockchain Selection */
