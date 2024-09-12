@@ -55,7 +55,7 @@ table a:hover {
     align-items: center;
     position: relative;
     max-width: 410px;
-    margin-left: 1100px;
+    margin-left: 200px;
     margin-top: -90px;
 
 }
@@ -102,7 +102,7 @@ table a:hover {
     width: 300px;
     height: 50px;
     font-size: 14px;
-    margin-left: 1500px;
+    margin-left: 600px;
     margin-top: -50px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -231,7 +231,6 @@ table a:hover {
     width: 100px;
     height: 25px;
     font-size: 15px;
-    cursor: pointer;
 }
 
 /* Number of Transactions */
